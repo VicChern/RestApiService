@@ -7,9 +7,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -51,7 +48,7 @@ public class DatabaseDemoApplication implements CommandLineRunner {
 		Person berlinPerson = new Person();
 		berlinPerson.setName("Toma");
 		berlinPerson.setLocation("Berlin");
-		berlinPerson.setBirthDate(LocalDate.now());
+		berlinPerson.setBirthDate(new Date());
 
 		personService.insertPerson(berlinPerson);
 

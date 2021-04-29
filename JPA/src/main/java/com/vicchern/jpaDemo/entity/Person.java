@@ -1,12 +1,13 @@
-package com.vicchern.databasedemo.persistence.entity;
+package com.vicchern.jpaDemo.entity;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Date;
 
-
-public class  Person {
+@Entity
+public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
