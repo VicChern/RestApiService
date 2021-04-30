@@ -8,7 +8,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.Date;
 import java.util.List;
 
 @SpringBootApplication
@@ -23,29 +22,33 @@ public class JPADemoApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) {
-//        List<Person> personList = personService.findAll();
-//
-//
-//        for (Person person : personList){
-//			System.out.println(person.toString());
-//		}
-//
+        List<Person> personList = personService.findAll();
+
+
+		System.out.println();
+        for (Person person : personList){
+			System.out.println(person.toString());
+		}
+
 		Person person = personService.findById(1);
 
 		System.out.println();
 		System.out.println(person.toString());
 		System.out.println("*");
-	}
+
+		updatePerson(person);
+
+		removePerson(person);
 //
 //		personService.deleteById(1);
 //
 //		runTheListChanges(personList);
-//
+
 //		updatePerson(personList);
-//
+	}
 //		addPerson(personList);
 //	}
-//
+
 //	private void addPerson(List<Person> personList) {
 //		Person berlinPerson = new Person();
 //		berlinPerson.setName("Toma");
@@ -57,14 +60,16 @@ public class JPADemoApplication implements CommandLineRunner{
 //		runTheListChanges(personList);
 //	}
 //
-//	private void updatePerson(List<Person> personList) {
-//		Person updatedPerson = personList.get(2);
-//		updatedPerson.setName("Jane");
-//		updatedPerson.setLocation("Bali");
-//		personList.set(1,updatedPerson);
-//
-//		personService.updatePerson(personList.get(2));
-//
+	private void updatePerson(Person person) {
+		person.setName("Jane");
+		person.setLocation("Bali");
+
+		personService.updatePerson(person);
+
+		System.out.println("Updated person: ");
+		System.out.println(person);
+		System.out.println("*");
+
 //		runTheListChanges(personList);
 //	}
 //
@@ -73,5 +78,11 @@ public class JPADemoApplication implements CommandLineRunner{
 //			System.out.println("\n");
 //			System.out.println(person.toString());
 //		}
-//	}
+	}
+
+	private void removePerson(Person person) {
+		personService.removePerson(person);
+
+		System.out.println("Person was  removed!");
+	}
 }

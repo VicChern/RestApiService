@@ -1,12 +1,11 @@
 package com.vicchern.jpaDemo.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.Date;
 
 @Entity
+@NamedQuery(name = "find_persons",query = "select p from Person p")
 public class Person {
 
     @Id

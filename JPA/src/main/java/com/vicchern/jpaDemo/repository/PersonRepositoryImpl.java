@@ -6,13 +6,17 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+
 @Repository
+@Transactional
 public class PersonRepositoryImpl implements PersonRepository{
 
     @PersistenceContext
@@ -25,28 +29,31 @@ public class PersonRepositoryImpl implements PersonRepository{
 //    }
 
     @Override
+    public List<Person> findAll() {
+        TypedQuery<Person> typedQuery = entityManager.createNamedQuery("find_persons",Person.class);
+        return typedQuery.getResultList();
+    }
+
+    @Override
     public Person findById(int id) {
         return entityManager.find(Person.class,id);
     }
 
 
-//    @Override
-//    public Integer deleteById(int id) {
-//        String sql = "delete from person where id = ?";
-//        return  entityManager.update(sql, id);
-//    }
-//
-//    @Override
-//    public void updatePerson(Person person) {
-//        String sql = "update person set name = ?, location = ? where id = ?";
-//        entityManager.update(sql, person.getName(), person.getLocation(),person.getId());
-//    }
-//
-//    @Override
-//    public void insertPerson(Person person) {
-//        String sql = "insert into person (name,location,birth_date) values(?,?,?)";
-//        entityManager.update(sql, person.getName(),person.getLocation(),person.getBirthDate());
-//    }
+    @Override
+    public void removePerson(Person person) {
+        entityManager.remove(entityManager.contains(person) ? person : entityManager.merge(person));
+    }
+
+    @Override
+    public void updatePerson(Person person) {
+        entityManager.merge(person);
+    }
+
+    @Override
+    public void insertPerson(Person person) {
+        entityManager.merge(person);
+    }
 //
 //    static class PersonRowMapper implements RowMapper<Person>{
 //
